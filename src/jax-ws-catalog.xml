@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl" uri="wsdl/ec.europa.eu/taxation_customs/vies/checkVatService.wsdl"/>
+</catalog>
