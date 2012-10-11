@@ -15,33 +15,37 @@ import javax.xml.ws.Holder;
  */
 public class VatChecker {
 
-    public static boolean isVatSyntaxValid(String countryCode, String vatNr) {
+    public static VatSyntaxStatus checkVatSyntaxStatus(String countryCode, String vatNr) {
         if (countryCode == null) {
-            return false;
+            return VatSyntaxStatus.INVALID;
         }
         String trimmedCountryCode = countryCode.trim();
         if (trimmedCountryCode.isEmpty()) {
-            return false;
+            return VatSyntaxStatus.INVALID;
         }
         if (vatNr == null) {
-            return false;
+            return VatSyntaxStatus.INVALID;
         }
         String trimmedVatNr = vatNr.trim();
         if (trimmedVatNr.isEmpty()) {
-            return false;
+            return VatSyntaxStatus.INVALID;
         }
         VatSyntaxChecker vatSyntaxChecker;
-        switch (countryCode) {
+        switch (trimmedCountryCode) {
             case "BE":
                 vatSyntaxChecker = new BEVatSyntaxChecker();
                 break;
             case "FR":
                 vatSyntaxChecker = new FRVatSyntaxChecker();
                 break;
+            case "":
+            case "NA":
+                vatSyntaxChecker = new NAVatSyntaxChecker();
+                break;
             default:
-                throw new IllegalStateException();
+                return null;
         }
-        return vatSyntaxChecker.isVatSyntaxValid(vatNr);
+        return vatSyntaxChecker.checkVatSyntaxStatus(vatNr);
     }
 
     public static VatInformation getVatInformation(String countryCode, String vatNr) {

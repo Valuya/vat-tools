@@ -11,15 +11,18 @@ package be.valuya.vattools;
 public class BEVatSyntaxChecker implements VatSyntaxChecker {
 
     @Override
-    public boolean isVatSyntaxValid(String vatNr) {
+    public VatSyntaxStatus checkVatSyntaxStatus(String vatNr) {
         if (vatNr.length() != 10) {
-            return false;
+            return VatSyntaxStatus.INVALID;
         }
         String firstDigitsStr = vatNr.substring(0, 8);
         String moduloStr = vatNr.substring(8, 10);
         Long vatNrLong = Long.valueOf(firstDigitsStr);
         Long moduloLong = Long.valueOf(moduloStr);
         Long expectedModuloLong = 97 - vatNrLong % 97;
-        return moduloLong.equals(expectedModuloLong);
+        if (moduloLong.equals(expectedModuloLong)) {
+            return VatSyntaxStatus.VALID;
+        }
+        return VatSyntaxStatus.INVALID;
     }
 }

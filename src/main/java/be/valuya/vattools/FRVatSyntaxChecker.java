@@ -11,15 +11,18 @@ package be.valuya.vattools;
 public class FRVatSyntaxChecker implements VatSyntaxChecker {
 
     @Override
-    public boolean isVatSyntaxValid(String vatNr) {
+    public VatSyntaxStatus checkVatSyntaxStatus(String vatNr) {
         if (vatNr.length() != 11) {
-            return false;
+            return VatSyntaxStatus.INVALID;
         }
         String sirenStr = vatNr.substring(2, 11);
         String moduloStr = vatNr.substring(0, 2);
         Long sirenLong = Long.valueOf(sirenStr);
         Long moduloLong = Long.valueOf(moduloStr);
         Long expectedModuloLong = (12 + 3 * (sirenLong % 97)) % 97;
-        return moduloLong.equals(expectedModuloLong);
+        if (moduloLong.equals(expectedModuloLong)) {
+            return VatSyntaxStatus.VALID;
+        }
+        return VatSyntaxStatus.INVALID;
     }
 }

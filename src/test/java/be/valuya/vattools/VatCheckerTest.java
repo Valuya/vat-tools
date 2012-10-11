@@ -22,20 +22,20 @@ public class VatCheckerTest {
     private static final String VAT_FR_SYNTAX_KO = "73404833048";
 
     /**
-     * Test of isVatSyntaxValid method, of class VatChecker.
+     * Test of checkVatSyntaxStatus method, of class VatChecker.
      */
     @Test
-    public void testIsVatSyntaxValid() {
-        boolean goodVatBe1Valid = VatChecker.isVatSyntaxValid(COUNTRY_CODE_BE, VAT_BE_SYNTAX_OK_VALID);
-        Assert.assertTrue(goodVatBe1Valid);
-        boolean wrongVatBe1Valid = VatChecker.isVatSyntaxValid(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO1);
-        Assert.assertFalse(wrongVatBe1Valid);
-        boolean wrongVatBe2Valid = VatChecker.isVatSyntaxValid(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO2);
-        Assert.assertFalse(wrongVatBe2Valid);
-        boolean goodVatFr1Valid = VatChecker.isVatSyntaxValid(COUNTRY_CODE_FR, VAT_FR_SYNTAX_OK_INVALID);
-        Assert.assertTrue(goodVatFr1Valid);
-        boolean wrongVatFr1Valid = VatChecker.isVatSyntaxValid(COUNTRY_CODE_FR, VAT_FR_SYNTAX_KO);
-        Assert.assertFalse(wrongVatFr1Valid);
+    public void testIsVatSyntaxStatus() {
+        VatSyntaxStatus goodVatBe1Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_OK_VALID);
+        Assert.assertTrue(goodVatBe1Status == VatSyntaxStatus.VALID);
+        VatSyntaxStatus wrongVatBe1Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO1);
+        Assert.assertFalse(wrongVatBe1Status == VatSyntaxStatus.VALID);
+        VatSyntaxStatus wrongVatBe2Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO2);
+        Assert.assertFalse(wrongVatBe2Status == VatSyntaxStatus.VALID);
+        VatSyntaxStatus goodVatFr1Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_FR, VAT_FR_SYNTAX_OK_INVALID);
+        Assert.assertTrue(goodVatFr1Status == VatSyntaxStatus.VALID);
+        VatSyntaxStatus wrongVatFr1Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_FR, VAT_FR_SYNTAX_KO);
+        Assert.assertFalse(wrongVatFr1Status == VatSyntaxStatus.VALID);
     }
 
     @Test

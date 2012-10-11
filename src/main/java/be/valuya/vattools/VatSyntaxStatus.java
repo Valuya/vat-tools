@@ -8,7 +8,10 @@ package be.valuya.vattools;
  *
  * @author Yannick
  */
-public interface VatSyntaxChecker {
-
-    VatSyntaxStatus checkVatSyntaxStatus(String vatNr);
+public enum VatSyntaxStatus {
+    
+    VALID,
+    INVALID,
+    UNKNOWN;
+    
 }

@@ -40,20 +40,6 @@
                         <id>wsimport-generate-checkVatService</id>
                         <phase>generate-sources</phase>
                     </execution>
-                    <execution>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                        <configuration>
-                            <wsdlFiles>
-                                <wsdlFile>ec.europa.eu/taxation_customs/vies/checkVatService.wsdl</wsdlFile>
-                            </wsdlFiles>
-                            <wsdlLocation>http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl</wsdlLocation>
-                            <staleFile>${project.build.directory}/jaxws/stale/checkVatService_1.stale</staleFile>
-                        </configuration>
-                        <id>wsimport-generate-checkVatService_1</id>
-                        <phase>generate-sources</phase>
-                    </execution>
                 </executions>
                 <dependencies>
                     <dependency>
