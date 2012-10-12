@@ -43,7 +43,7 @@ public class VatChecker {
                 vatSyntaxChecker = new NAVatSyntaxChecker();
                 break;
             default:
-                return null;
+                return VatSyntaxStatus.UNKNOWN;
         }
         return vatSyntaxChecker.checkVatSyntaxStatus(vatNr);
     }

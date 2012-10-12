@@ -12,6 +12,6 @@ public class NAVatSyntaxChecker implements VatSyntaxChecker {
 
     @Override
     public VatSyntaxStatus checkVatSyntaxStatus(String vatNr) {
-        return VatSyntaxStatus.INVALID;
+        return VatSyntaxStatus.VALID;
     }
 }
