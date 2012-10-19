@@ -17,6 +17,9 @@ public class VatCheckerTest {
     private static final String VAT_BE_SYNTAX_OK_VALID = "0845914036";
     private static final String VAT_BE_SYNTAX_KO1 = "845914036";
     private static final String VAT_BE_SYNTAX_KO2 = "0845914037";
+    private static final String VAT_BE_SYNTAX_KO3 = "0845 914 037";
+    private static final String VAT_BE_SYNTAX_KO4 = "0845.914.037";
+    private static final String VAT_BE_SYNTAX_KO5 = "0845.914.037 ";
     private static final String COUNTRY_CODE_FR = "FR";
     private static final String VAT_FR_SYNTAX_OK_INVALID = "83404833048";
     private static final String VAT_FR_SYNTAX_KO = "73404833048";
@@ -32,10 +35,16 @@ public class VatCheckerTest {
         Assert.assertFalse(wrongVatBe1Status == VatSyntaxStatus.VALID);
         VatSyntaxStatus wrongVatBe2Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO2);
         Assert.assertFalse(wrongVatBe2Status == VatSyntaxStatus.VALID);
+        VatSyntaxStatus wrongVatBe3WithStatus = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO3);
+        Assert.assertTrue(wrongVatBe3WithStatus == VatSyntaxStatus.INVALID);
+        VatSyntaxStatus wrongVatBe4WithStatus = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO4);
+        Assert.assertTrue(wrongVatBe4WithStatus == VatSyntaxStatus.INVALID);
+        VatSyntaxStatus wrongVatBe5WithStatus = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO5);
+        Assert.assertTrue(wrongVatBe5WithStatus == VatSyntaxStatus.INVALID);
         VatSyntaxStatus goodVatFr1Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_FR, VAT_FR_SYNTAX_OK_INVALID);
         Assert.assertTrue(goodVatFr1Status == VatSyntaxStatus.VALID);
         VatSyntaxStatus wrongVatFr1Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_FR, VAT_FR_SYNTAX_KO);
-        Assert.assertFalse(wrongVatFr1Status == VatSyntaxStatus.VALID);
+        Assert.assertTrue(wrongVatFr1Status == VatSyntaxStatus.INVALID);
     }
 
     @Test

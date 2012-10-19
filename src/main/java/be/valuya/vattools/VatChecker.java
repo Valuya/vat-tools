@@ -30,22 +30,26 @@ public class VatChecker {
         if (trimmedVatNr.isEmpty()) {
             return VatSyntaxStatus.INVALID;
         }
-        VatSyntaxChecker vatSyntaxChecker;
-        switch (trimmedCountryCode) {
-            case "BE":
-                vatSyntaxChecker = new BEVatSyntaxChecker();
-                break;
-            case "FR":
-                vatSyntaxChecker = new FRVatSyntaxChecker();
-                break;
-            case "":
-            case "NA":
-                vatSyntaxChecker = new NAVatSyntaxChecker();
-                break;
-            default:
-                return VatSyntaxStatus.UNKNOWN;
+        try {
+            VatSyntaxChecker vatSyntaxChecker;
+            switch (trimmedCountryCode) {
+                case "BE":
+                    vatSyntaxChecker = new BEVatSyntaxChecker();
+                    break;
+                case "FR":
+                    vatSyntaxChecker = new FRVatSyntaxChecker();
+                    break;
+                case "":
+                case "NA":
+                    vatSyntaxChecker = new NAVatSyntaxChecker();
+                    break;
+                default:
+                    return VatSyntaxStatus.UNKNOWN;
+            }
+            return vatSyntaxChecker.checkVatSyntaxStatus(vatNr);
+        } catch (NumberFormatException numberFormatException) {
+            return VatSyntaxStatus.INVALID;
         }
-        return vatSyntaxChecker.checkVatSyntaxStatus(vatNr);
     }
 
     public static VatInformation getVatInformation(String countryCode, String vatNr) {
