@@ -19,7 +19,7 @@ public class VatCheckerTest {
     private static final String VAT_BE_SYNTAX_KO2 = "0845914037";
     private static final String VAT_BE_SYNTAX_KO3 = "0845 914 037";
     private static final String VAT_BE_SYNTAX_KO4 = "0845.914.037";
-    private static final String VAT_BE_SYNTAX_KO5 = "0845.914.037 ";
+    private static final String VAT_BE_SYNTAX_KO5 = "845914037 ";
     private static final String COUNTRY_CODE_FR = "FR";
     private static final String VAT_FR_SYNTAX_OK_INVALID = "83404833048";
     private static final String VAT_FR_SYNTAX_KO = "73404833048";
