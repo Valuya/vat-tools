@@ -13,12 +13,16 @@ pipeline {
     stages {
         stage ('Build') {
             steps {
-                sh "mvn -DskipTests=${params.SKIP_TESTS} clean compile install"
+		withMaven(mavenSettingsConfig: 'nexus-mvn-settings') {
+	                sh "mvn -DskipTests=${params.SKIP_TESTS} clean compile install"
+		}
             }
         }
         stage ('Deploy') {
             steps {
-                sh  "mvn -DskipTests=${params.SKIP_TESTS} -s /var/run/secrets/nexus-mvn-settings deploy"
+		withMaven(mavenSettingsConfig: 'nexus-mvn-settings') {
+	                sh  "mvn -DskipTests=${params.SKIP_TESTS} -s /var/run/secrets/nexus-mvn-settings deploy"
+		}
             }
         }
     }
