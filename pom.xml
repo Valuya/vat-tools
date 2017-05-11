@@ -4,8 +4,21 @@
 
     <groupId>be.valuya.vattools</groupId>
     <artifactId>VatTools</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus@valuya</id>
+            <name>Nexus</name>
+            <url>https://valuya.be:50443/nexus/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus@valuya</id>
+            <name>Nexus</name>
+            <url>https://valuya.be:50443/nexus/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <name>VatTools</name>
     <url>http://maven.apache.org</url>
