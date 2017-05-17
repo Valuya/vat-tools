@@ -53,6 +53,9 @@ public class VatChecker {
     }
 
     public static VatInformation getVatInformation(String countryCode, String vatNr) {
+        if (countryCode == null || countryCode.isEmpty() || vatNr == null || vatNr.isEmpty()) {
+            return null;
+        }
         CheckVatService checkVatService = new CheckVatService();
         CheckVatPortType checkVatPortType = checkVatService.getCheckVatPort();
         Holder<String> holderCountryCode = new Holder<>(countryCode);
