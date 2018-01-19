@@ -16,7 +16,7 @@
         <snapshotRepository>
             <id>nexus@valuya</id>
             <name>Nexus</name>
-            <url>https://nexus.valuya.be/nexus/repository/maven-releases/</url>
+            <url>https://nexus.valuya.be/nexus/repository/maven-release/</url>
         </snapshotRepository>
     </distributionManagement>
 
