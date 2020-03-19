@@ -47,7 +47,7 @@
                             <wsdlFiles>
                                 <wsdlFile>ec.europa.eu/taxation_customs/vies/checkVatService.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <wsdlLocation>http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl</wsdlLocation>
+                            <wsdlLocation>https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl</wsdlLocation>
                             <staleFile>${project.build.directory}/jaxws/stale/checkVatService.stale</staleFile>
                         </configuration>
                         <id>wsimport-generate-checkVatService</id>
