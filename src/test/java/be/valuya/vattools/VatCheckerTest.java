@@ -58,8 +58,8 @@ public class VatCheckerTest {
         Assert.assertTrue(valid);
         Assert.assertEquals(countryCode, COUNTRY_CODE_BE);
         Assert.assertEquals(vatNumber, VAT_BE_SYNTAX_OK_VALID);
-        Assert.assertEquals("SPRL VALUYA", name);
-        Assert.assertEquals("RUE HAUTE 19\n5140  SOMBREFFE(LIGNY)", address);
+        Assert.assertEquals("SPRL Valuya", name);
+        Assert.assertEquals("Rue du Poncia, Gd-M. 2A\n5030 Gembloux", address);
     }
 
     @Test
