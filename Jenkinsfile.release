@@ -1,0 +1,87 @@
+#!groovy
+
+pipeline {
+    agent any
+    parameters {
+        string(name: 'NEW_VERSION', defaultValue: '2020.1.1', description: 'New version')
+        string(name: 'NEXT_VERSION', defaultValue: '2020.1.2-SNAPSHOT', description: 'Next version')
+        string(name: 'RELEASE_BRANCH', defaultValue: 'master', description: 'The release branch')
+        string(name: 'DEV_BRANCH', defaultValue: 'dev', description: 'The dev branch')
+        booleanParam(name: 'SKIP_NEXT_VERSION', defaultValue: 'false', description: 'Skip tests')
+        booleanParam(name: 'SKIP_PUSH_TAG', defaultValue: 'false', description: 'Skip tag')
+        booleanParam(name: 'DRY_RUN', defaultValue: 'false', description: 'Do not push commit')
+    }
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+    stages {
+        stage ('Tag') {
+             when {
+                expression {
+                    return (params.NEW_VERSION != '' && params.NEXT_VERSION != '')
+                }
+            }
+            steps {
+                script {
+                    env.NEW_VERSION = params.NEW_VERSION
+                    env.NEXT_VERSION = params.NEXT_VERSION
+                }
+                withMaven(maven: 'maven', mavenSettingsConfig: 'nexus-mvn-settings') {
+                    sh "git clean -df"
+                    sh "mvn --batch-mode org.codehaus.mojo:versions-maven-plugin:2.3:set -DnewVersion=$NEW_VERSION || exit 1"
+                    sh "git add pom.xml"
+                    sh "git add **/pom.xml"
+                    sh 'git config user.email "jenkins@valuya.be"'
+                    sh 'git config user.name "Jenkins release"'
+                    sh 'git commit -m "Release $NEW_VERSION"'
+                    sh "git merge origin/${RELEASE_BRANCH}"
+                    sh "git tag $NEW_VERSION"
+                }
+            }
+        }
+
+        stage ('Push') {
+             when {
+                allOf {
+                    expression {
+                        return (params.NEW_VERSION != '' )
+                    }
+                    expression {
+                        return (params.DRY_RUN == false)
+                    }
+                }
+            }
+            steps {
+                withMaven(maven: 'maven', mavenSettingsConfig: 'nexus-mvn-settings') {
+                    sh "git push origin HEAD:${RELEASE_BRANCH}"
+                    sh "eval ${SKIP_PUSH_TAG} || git push origin $NEW_VERSION "
+                }
+            }
+        }
+
+
+        stage ('Push next') {
+             when {
+                allOf {
+                    expression {
+                        return (params.SKIP_NEXT_VERSION == false)
+                    }
+                    expression {
+                        return (params.DRY_RUN == false)
+                    }
+                }
+            }
+            steps {
+                withMaven(maven: 'maven', mavenSettingsConfig: 'nexus-mvn-settings') {
+                    sh "mvn --batch-mode org.codehaus.mojo:versions-maven-plugin:2.3:set -DnewVersion=$NEXT_VERSION || exit 1"
+                    sh "git add pom.xml"
+                    sh "git add **/pom.xml"
+                    sh 'git commit -m "Version $NEXT_VERSION"'
+                    sh "git merge origin/${DEV_BRANCH}"
+                    sh "git push origin HEAD:${DEV_BRANCH}"
+                }
+            }
+        }
+    }
+}
