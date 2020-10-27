@@ -9,16 +9,27 @@
 
     <distributionManagement>
         <repository>
-            <id>nexus@valuya</id>
+            <id>nexus.lifeislifedev.valuya.be</id>
             <name>Nexus</name>
-            <url>https://nexus.valuya.be/nexus/repository/maven-release/</url>
+            <url>https://nexus.lifeislifedev.valuya.be/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus@valuya</id>
+            <id>nexus.lifeislifedev.valuya.be</id>
             <name>Nexus</name>
-            <url>https://nexus.valuya.be/nexus/repository/maven-snapshots/</url>
+            <url>https://nexus.lifeislifedev.valuya.be/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>nexus.lifeislifedev.valuya.be</id>
+            <url>https://nexus.lifeislifedev.valuya.be/repository/maven-public/</url>
+            <name>Nexus</name>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <name>VatTools</name>
     <url>http://maven.apache.org</url>
