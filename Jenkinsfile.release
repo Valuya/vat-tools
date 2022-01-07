@@ -31,7 +31,6 @@ pipeline {
                     sh "git clean -df"
                     sh "mvn --batch-mode org.codehaus.mojo:versions-maven-plugin:2.3:set -DnewVersion=$NEW_VERSION || exit 1"
                     sh "git add pom.xml"
-                    sh "git add **/pom.xml"
                     sh 'git config user.email "jenkins@valuya.be"'
                     sh 'git config user.name "Jenkins release"'
                     sh 'git commit -m "Release $NEW_VERSION"'
@@ -76,7 +75,6 @@ pipeline {
                 withMaven(maven: 'maven', mavenSettingsConfig: 'nexus-mvn-settings') {
                     sh "mvn --batch-mode org.codehaus.mojo:versions-maven-plugin:2.3:set -DnewVersion=$NEXT_VERSION || exit 1"
                     sh "git add pom.xml"
-                    sh "git add **/pom.xml"
                     sh 'git commit -m "Version $NEXT_VERSION"'
                     sh "git merge origin/${DEV_BRANCH}"
                     sh "git push origin HEAD:${DEV_BRANCH}"
