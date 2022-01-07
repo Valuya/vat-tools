@@ -20,9 +20,9 @@ pipeline {
         }
         stage ('Deploy') {
             steps {
-		withMaven(maven: 'maven', mavenSettingsConfig: 'nexus-mvn-settings') {
-	                sh  "mvn -DskipTests=${params.SKIP_TESTS} -s /var/run/secrets/nexus-mvn-settings deploy"
-		}
+              withMaven(maven: 'maven', mavenSettingsConfig: 'nexus-mvn-settings') {
+                            sh  "mvn -DskipTests=${params.SKIP_TESTS} -s /var/run/secrets/nexus-mvn-settings deploy"
+              }
             }
         }
     }
