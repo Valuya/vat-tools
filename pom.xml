@@ -9,12 +9,12 @@
 
     <distributionManagement>
         <repository>
-            <id>nexus.valuya.com</id>
+            <id>nexus@valuya</id>
             <name>Nexus</name>
             <url>https://nexus.valuya.com/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus.valuya.com</id>
+            <id>nexus@valuya</id>
             <name>Nexus</name>
             <url>https://nexus.valuya.com/repository/maven-snapshots/</url>
         </snapshotRepository>
@@ -22,7 +22,7 @@
 
     <repositories>
         <repository>
-            <id>nexus.valuya.com</id>
+            <id>nexus@valuya</id>
             <url>https://nexus.valuya.com/repository/maven-public/</url>
             <name>Nexus</name>
             <snapshots>
