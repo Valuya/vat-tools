@@ -4,7 +4,7 @@
 
     <groupId>be.valuya.vattools</groupId>
     <artifactId>VatTools</artifactId>
-    <version>2022.3-SNAPSHOT</version>
+    <version>2022.3</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
