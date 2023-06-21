@@ -4,11 +4,10 @@
  */
 package be.valuya.vattools;
 
-import junit.framework.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
- *
  * @author Yannick
  */
 public class VatCheckerTest {
@@ -30,21 +29,21 @@ public class VatCheckerTest {
     @Test
     public void testIsVatSyntaxStatus() {
         VatSyntaxStatus goodVatBe1Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_OK_VALID);
-        Assert.assertTrue(goodVatBe1Status == VatSyntaxStatus.VALID);
+        Assertions.assertSame(goodVatBe1Status, VatSyntaxStatus.VALID);
         VatSyntaxStatus wrongVatBe1Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO1);
-        Assert.assertFalse(wrongVatBe1Status == VatSyntaxStatus.VALID);
+        Assertions.assertNotSame(wrongVatBe1Status, VatSyntaxStatus.VALID);
         VatSyntaxStatus wrongVatBe2Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO2);
-        Assert.assertFalse(wrongVatBe2Status == VatSyntaxStatus.VALID);
+        Assertions.assertNotSame(wrongVatBe2Status, VatSyntaxStatus.VALID);
         VatSyntaxStatus wrongVatBe3WithStatus = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO3);
-        Assert.assertTrue(wrongVatBe3WithStatus == VatSyntaxStatus.INVALID);
+        Assertions.assertSame(wrongVatBe3WithStatus, VatSyntaxStatus.INVALID);
         VatSyntaxStatus wrongVatBe4WithStatus = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO4);
-        Assert.assertTrue(wrongVatBe4WithStatus == VatSyntaxStatus.INVALID);
+        Assertions.assertSame(wrongVatBe4WithStatus, VatSyntaxStatus.INVALID);
         VatSyntaxStatus wrongVatBe5WithStatus = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_BE, VAT_BE_SYNTAX_KO5);
-        Assert.assertTrue(wrongVatBe5WithStatus == VatSyntaxStatus.INVALID);
+        Assertions.assertSame(wrongVatBe5WithStatus, VatSyntaxStatus.INVALID);
         VatSyntaxStatus goodVatFr1Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_FR, VAT_FR_SYNTAX_OK_INVALID);
-        Assert.assertTrue(goodVatFr1Status == VatSyntaxStatus.VALID);
+        Assertions.assertSame(goodVatFr1Status, VatSyntaxStatus.VALID);
         VatSyntaxStatus wrongVatFr1Status = VatChecker.checkVatSyntaxStatus(COUNTRY_CODE_FR, VAT_FR_SYNTAX_KO);
-        Assert.assertTrue(wrongVatFr1Status == VatSyntaxStatus.INVALID);
+        Assertions.assertSame(wrongVatFr1Status, VatSyntaxStatus.INVALID);
     }
 
     @Test
@@ -55,17 +54,17 @@ public class VatCheckerTest {
         String name = vatInformation.getName();
         String address = vatInformation.getAddress();
         boolean valid = vatInformation.isValid();
-        Assert.assertTrue(valid);
-        Assert.assertEquals(countryCode, COUNTRY_CODE_BE);
-        Assert.assertEquals(vatNumber, VAT_BE_SYNTAX_OK_VALID);
-        Assert.assertEquals("SPRL Valuya", name);
-        Assert.assertEquals("Rue du Poncia, Gd-M. 2A\n5030 Gembloux", address);
+        Assertions.assertTrue(valid);
+        Assertions.assertEquals(countryCode, COUNTRY_CODE_BE);
+        Assertions.assertEquals(vatNumber, VAT_BE_SYNTAX_OK_VALID);
+        Assertions.assertEquals("SPRL Valuya", name);
+        Assertions.assertEquals("Rue du Poncia, Gd-M. 2A\n5030 Gembloux", address);
     }
 
     @Test
     public void testGetVatInformationFR() {
         VatInformation vatInformation = VatChecker.getVatInformation(COUNTRY_CODE_BE, VAT_FR_SYNTAX_OK_INVALID);
         boolean valid = vatInformation.isValid();
-        Assert.assertFalse(valid);
+        Assertions.assertFalse(valid);
     }
 }
