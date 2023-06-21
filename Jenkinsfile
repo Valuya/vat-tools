@@ -39,7 +39,7 @@ pipeline {
                   sh 'gpg --allow-secret-key-import --import $GPGKEY'
                   sh "echo \"${params.GPG_KEY_FINGERPRINT}:6:\" | gpg --import-ownertrust"
               }
-                withMaven(maven: 'maven', mavenSettingsConfig: 'ossrh-settings-xml', jdk: 'jdk11') {
+                withMaven(maven: 'maven', mavenSettingsConfig: 'ossrh-settings-xml', jdk: 'jdk17') {
                     sh "mvn $MVN_ARGS $MVN_GOALS"
               }
             }

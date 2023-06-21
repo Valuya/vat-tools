@@ -6,13 +6,11 @@ package be.valuya.vattools;
 
 import eu.europa.ec.taxud.vies.services.checkvat.CheckVatPortType;
 import eu.europa.ec.taxud.vies.services.checkvat.CheckVatService;
+import jakarta.xml.ws.Holder;
+
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceFeature;
 
 /**
- *
  * @author Yannick
  */
 public class VatChecker {
